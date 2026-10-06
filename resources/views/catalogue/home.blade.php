@@ -4,184 +4,34 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/catalogue/css/settings.css') }}" media="screen" />
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/catalogue/css/layers.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/catalogue/css/navigation.css') }}">
-
-    <style>
-        :root {
-            --brand-accent: #f6931d;
-            --brand-light: #fff7ed;
-            --brand-border: #ffedd5;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --bg-main: #f8fafc;
-        }
-
-        body {
-            background-color: var(--bg-main) !important;
-            color: var(--text-main);
-        }
-
-        .hero-banner {
-            /* background: linear-gradient(135deg, #ffffff 0%, var(--brand-light) 100%); */
-			background-color: #f6931d;
-            border-bottom: 1px solid var(--brand-border);
-            padding: 2rem 0;
-        }
-
-        .search-input-group {
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-            border-radius: 0.5rem;
-            overflow: hidden;
-        }
-
-        .search-input-group .form-control {
-            border: 1px solid #e2e8f0;
-            border-right: none;
-            padding: 0.75rem 1.25rem;
-            font-size: 0.95rem;
-        }
-
-        .search-input-group .form-control:focus {
-            box-shadow: none;
-            border-color: #cbd5e1;
-        }
-
-        .btn-search {
-            background-color: #f97316;
-            color: #ffffff;
-            border: none;
-            padding: 0 1.5rem;
-            transition: background-color 0.2s ease;
-        }
-
-        .btn-search:hover {
-            background-color: #ea580c;
-            color: #ffffff;
-        }
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            margin: 2.5rem 0 1.25rem 0;
-        }
-
-        .section-header h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text-main);
-            margin: 0;
-            white-space: nowrap;
-        }
-
-        .section-header::after {
-            content: "";
-            flex-grow: 1;
-            height: 1px;
-            background-color: #e2e8f0;
-            margin-left: 1rem;
-        }
-
-        .auth-banner {
-            background-color: #fef2f2;
-            border: 1px solid #fee2e2;
-            border-radius: 0.5rem;
-            color: #991b1b;
-            padding: 1rem 1.25rem;
-            margin-bottom: 1.5rem;
-        }
-
-        a.disabled-link {
-            pointer-events: none;
-            cursor: default;
-            opacity: 0.5;
-        }
-
-		/* cards styles */
-		.owl-carousel .owl-item {
-			border: 1px solid #80808040;
-			border-radius: 10px;
-			margin-bottom: 18px;
-			box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
-		}
-
-		.category-card {
-			border: 1px solid #80808040 !important;
-			border-radius: 10px ;
-			transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
-		}
-
-		.category-card:hover {
-			transform: translateY(-4px);
-			box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
-		}
-
-		.category-img {
-			transition: transform 0.3s ease;
-		}
-
-		.category-card:hover .category-img {
-			transform: scale(1.05);
-		}
-
-		/* Sharp Image Rendering & Ratio Containment */
-		.product-img {
-			object-fit: contain !important; /* Prevents stretching/distortion */
-			image-rendering: -webkit-optimize-contrast; /* Sharpens pixel scaling on Chrome/Safari */
-			image-rendering: crisp-edges;
-			transition: transform 0.3s ease-in-out;
-		}
-
-		/* Card Hover Interactions */
-		.product-card {
-			transition: transform 0.25s ease, box-shadow 0.25s ease;
-			border: 1px solid rgba(0, 0, 0, 0.08) !important;
-		}
-
-		.product-card:hover {
-			transform: translateY(-4px);
-			box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.1) !important;
-		}
-
-		.product-card:hover .product-img {
-			transform: scale(1.06);
-		}
-
-		/* Overlay Animation */
-		.product-overlay {
-			background: rgba(255, 255, 255, 0.85);
-			backdrop-filter: blur(2px);
-			transform: translateY(100%);
-			transition: transform 0.25s ease-in-out;
-		}
-
-		.product-card:hover .product-overlay {
-			transform: translateY(0);
-		}
-
-		/* Truncate long titles cleanly to 2 lines */
-		.text-truncate-2 {
-			display: -webkit-box;
-			-webkit-line-clamp: 2;
-			-webkit-box-orient: vertical;
-			overflow: hidden;
-		}
-    </style>
 @endsection
 
 @section('content')
-
-    <!-- Top Banner -->
-    <section class="hero-banner">
+    <br />
+    <section class="hero-banner mx-4">
         <div class="container-fluid px-4 px-lg-5">
-            <div class="before-heading font-secondary text-dark fw-semibold fs-12-f">Materials Control Department</div>
-            <h1 class="text-dark fw-bold mb-0 fs-24 fs-lg-32">IMF-MRS-PA (IMP) System</h1>
+            <div class="before-heading">Materials Control Department</div>
+            <h1>IMF-MRS-PA (IMP) System</h1>
+
+            <div class="hero-metrics">
+                <div class="metric-card">
+                    <small>Catalog</small>
+                    <strong>{{ count($categories ?? []) }} categories</strong>
+                </div>
+                <div class="metric-card">
+                    <small>Cart Items</small>
+                    <strong><span class="hero-cart-total">{{ Setting::EcommerceCartTotalItems() }}</span> items</strong>
+                </div>
+                <div class="metric-card">
+                    <small>Previous Requests</small>
+                    <strong>{{ count($previously_ordered ?? []) }} history</strong>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Main Content Area -->
     <section id="content" class="py-4">
         <div class="container-fluid px-4 px-lg-5">
-
-            <!-- Authentication Warning Banner -->
             @if(!$isAuthenticated)
                 <input type="hidden" id="isAuthenticated" value="false">
                 <div class="auth-banner d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2">
@@ -198,93 +48,225 @@
                 </div>
             @endif
 
-            <!-- Single Line Header & Search Bar Bar -->
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 pb-3 pt-4">
-                <h2 class="h3 fw-bold mb-0 text-dark">Product Catalogue</h2>
-                
-                <form action="{{ route('catalogue.search') }}" method="POST" role="search" class="m-0" style="min-width: 320px; max-width: 480px; width: 100%;">
-                    @csrf
-                    <div class="input-group search-input-group">
-                        <input 
-							type="text" 
-							name="query" 
-							class="form-control" 
-							placeholder="Search by name, description, or code..." 
-							aria-label="Search Products"
-							style="border-top-left-radius: 10px; border-bottom-left-radius: 10px"
-						>
-                        <button class="btn btn-search" type="submit" id="button-addon2">
-                            <i class="icon-search"></i>
+            <div class="catalogue-layout">
+                <div class="catalogue-main">
+                    <div class="catalogue-heading-row d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 pb-3 pt-4">
+                        <h2 class="h3 fw-bold mb-0 text-dark">Product Catalogue</h2>
+
+                        <div class="catalogue-heading-actions">
+                            <form action="{{ route('catalogue.search') }}" method="POST" role="search" class="catalogue-search-form m-0">
+                                @csrf
+                                <div class="input-group search-input-group">
+                                    <input
+                                        type="text"
+                                        name="query"
+                                        class="form-control"
+                                        placeholder="Search by name, description, or code..."
+                                        aria-label="Search Products"
+                                        style="border-top-left-radius: 16px; border-bottom-left-radius: 16px"
+                                    >
+                                    <button class="btn btn-search" type="submit" id="button-addon2">
+                                        <i class="icon-search"></i>
+                                    </button>
+                                </div>
+                            </form>
+
+                            <details class="category-dropdown">
+                                <summary>
+                                    <i class="icon-grid"></i>
+                                    <span>Browse by Category</span>
+                                    <i class="icon-chevron-down category-dropdown-chevron"></i>
+                                </summary>
+                                <div class="category-dropdown-menu">
+                                    @forelse($categories as $category)
+                                        <a href="{{ route('catalogue.category_products', $category->id) }}">
+                                            {{ ucwords(strtolower($category->description ?? $category->name ?? 'Category')) }}
+                                        </a>
+                                    @empty
+                                        <span class="category-dropdown-empty">No categories found.</span>
+                                    @endforelse
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+
+                    <div class="catalogue-tabs" role="tablist" aria-label="Catalogue item lists">
+                        <button type="button" class="catalogue-tab is-active" id="previously-requested-tab" role="tab" aria-selected="true" aria-controls="previously-requested-panel" data-catalogue-tab="previously-requested-panel">
+                                <i class="icon-history" aria-hidden="true"></i>
+                            Previously Requested Items
+                        </button>
+                        <button type="button" class="catalogue-tab" id="newly-added-tab" role="tab" aria-selected="false" aria-controls="newly-added-panel" data-catalogue-tab="newly-added-panel" tabindex="-1">
+                                <i class="icon-tag" aria-hidden="true"></i>
+                            Newly Added Items
                         </button>
                     </div>
-                </form>
-            </div>
 
-            <!-- Dashboard Sections -->
-            <div id="input-fields">
-                
-                <!-- Section: Previously Requested Items -->
-                <div class="section-header">
-                    <h3>Previously Requested Items</h3>
+                    <div id="input-fields">
+
+                        <div class="catalogue-tab-panel is-active" id="previously-requested-panel" role="tabpanel" aria-labelledby="previously-requested-tab">
+                        <div class="section-shell">
+                            <div class="section-header">
+                                <h3>Previously Requested Items</h3>
+                            </div>
+
+                            <div class="previously-requested-wrap">
+                                <table class="previously-requested-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 52%;">Product</th>
+                                            <th style="width: 18%;">Code</th>
+                                            <th style="width: 14%;">Qty</th>
+                                            <th style="width: 16%;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse($previously_ordered as $po)
+                                            <tr>
+                                                <td data-label="Product">
+                                                    <div class="previously-requested-name">
+                                                        <small>
+                                                            <a href="{{ route('product.front.show', $po->slug) }}">{{ $po->name }}</a>
+                                                        </small>
+                                                    </div>
+                                                </td>
+                                                <td data-label="Code">
+                                                    <span class="previously-requested-code">{{ $po->id }}</span>
+                                                </td>
+                                                <td data-label="Qty">
+                                                    <input type="number" min="1" step="1" value="1" class="previously-requested-qty" id="quantity_prev_{{ $po->id }}" aria-label="Quantity for {{ $po->name }}">
+                                                </td>
+                                                <td data-label="Action">
+                                                    <button type="button" class="previously-requested-action" onclick="add_to_cart('{{ $po->id }}');">
+                                                        <i class="icon-shopping-cart"></i> Reorder
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="4" class="newly-added-empty">No previously requested items available.</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        </div>
+
+                        <div class="catalogue-tab-panel" id="newly-added-panel" role="tabpanel" aria-labelledby="newly-added-tab" hidden>
+                        <div class="section-shell">
+                            <div class="section-header">
+                                <h3>Newly Added Items</h3>
+                            </div>
+
+                            <div class="newly-added-table-wrap">
+                                <table class="newly-added-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 54%;">Product</th>
+                                            <th style="width: 18%;">Code</th>
+                                            <th style="width: 14%;">Qty</th>
+                                            <th style="width: 14%;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse($newly_added as $po)
+                                            <tr>
+                                                <td data-label="Product">
+                                                    <div class="newly-added-product">
+                                                        <div class="product-copy">
+                                                            <small>
+                                                                <a href="{{ route('product.front.show', $po->slug) }}">{{ $po->name }}</a>
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td data-label="Code">
+                                                    <span class="newly-added-code">{{ $po->id }}</span>
+                                                </td>
+                                                <td data-label="Qty">
+                                                    <input type="number" min="1" step="1" value="1" class="newly-added-qty" id="quantity{{ $po->id }}" aria-label="Quantity for {{ $po->name }}">
+                                                </td>
+                                                <td data-label="Action">
+                                                    <button type="button" class="newly-added-action d-flex text-nowrap" onclick="add_to_cart('{{ $po->id }}');">
+                                                        <i class="icon-shopping-cart"></i> Add to Cart
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="4" class="newly-added-empty">No newly added items available at the moment.</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        </div>
+
+                    </div>
                 </div>
 
-                <div id="oc-products" class="owl-carousel products-carousel carousel-widget py-4" data-pagi="false" data-items-xs="1" data-items-sm="2" data-items-md="4" data-items-lg="6">
-                    @forelse($previously_ordered as $po)
-                        @php
-                            $data = [
-                                'code' => $po->id,
-                                'inventory' => 100,
-                                'name' => $po->name,
-                                'image' => $po->PhotoSmall,
-                                'slug' => $po->slug,
-                                'id' => $po->id
-                            ];
-                        @endphp
-                        <x-product-thumb :data="$data"/>
-                    @empty
-                    @endforelse
-                </div>
+                <aside class="catalogue-sidebar">
+                    <div class="sidebar-card">
+                        <div class="sidebar-header">
+                            <h3>Cart Details</h3>
+                            <span class="mini-badge">{{ Setting::EcommerceCartTotalItems() }}</span>
+                        </div>
 
-                <!-- Section: Newly Added Items -->
-                <div class="section-header">
-                    <h3>Newly Added Items</h3>
-                </div>
+                        <div class="sidebar-items" id="my-cart-list">
+                            @forelse(Setting::cart_items() as $item)
+                                <div class="sidebar-item cart-item" data-cart-id="{{ $item->id }}">
+                                    <div class="cart-item-icon" aria-label="Cart item icon">
+                                        <i class="icon-bag"></i>
+                                    </div>
+                                    <div>
+                                        <h4>{{ optional($item->product)->name }}</h4>
+                                        <div class="cart-item-actions">
+                                            <div class="side-cart-qty" aria-label="Quantity controls">
+                                                <button type="button" class="qty-adjust qty-minus" data-cart-id="{{ $item->id }}" data-delta="-1" aria-label="Decrease quantity">−</button>
+                                                <span class="qty-value">{{ $item->qty }}</span>
+                                                <button type="button" class="qty-adjust qty-plus" data-cart-id="{{ $item->id }}" data-delta="1" aria-label="Increase quantity">+</button>
+                                            </div>
+                                            <button type="button" class="remove-cart-item" data-cart-id="{{ $item->id }}" aria-label="Remove item">
+                                                <i class="icon-trash-alt1"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <strong>{{ optional($item->product)->discountedprice ? '₱' . number_format($item->product->discountedprice * $item->qty, 2) : '—' }}</strong>
+                                    </div>
+                                </div>
+                            @empty
+                                <div class="empty-sidebar">Your cart is currently empty.</div>
+                            @endforelse
+                        </div>
 
-                <div id="oc-products-new" class="owl-carousel products-carousel carousel-widget" data-pagi="false" data-items-xs="1" data-items-sm="2" data-items-md="4" data-items-lg="6">
-                    @forelse($newly_added as $po)
-                        @php
-                            $data = [
-                                'code' => $po->id,
-                                'inventory' => 100,
-                                'name' => $po->name,
-                                'image' => $po->PhotoSmall,
-                                'slug' => $po->slug,
-                                'id' => $po->id
-                            ];
-                        @endphp
-                        <x-product-thumb :data="$data"/>
-                    @empty
-                    @endforelse
-                </div>
+                        <div class="sidebar-total">
+                            <span>Items</span>
+                            <strong>{{ Setting::EcommerceCartTotalItems() }}</strong>
+                        </div>
 
-                <!-- Section: Categories -->
-                <div class="section-header">
-                    <h3>Browse by Category</h3>
-                </div>
+                        <div class="sidebar-actions">
+                            <a href="{{ route('cart.front.checkout') }}" class="btn btn-primary">Proceed to Checkout</a>
+                            <!-- <a href="{{ route('cart.front.show') }}" class="btn btn-outline">View Cart</a> -->
+                        </div>
+                    </div>
 
-                <div id="portfolio" class="row g-3 g-lg-4">
-					@forelse($categories as $c)
-						<x-category-thumb :c="$c"/>
-					@empty
-						<div class="col-12 text-center py-5 text-muted">
-							<p class="mb-0">No categories found.</p>
-						</div>
-					@endforelse
-				</div>
+                    <div class="sidebar-card">
+                        <div class="sidebar-header">
+                            <h3>Quick Info</h3>
+                        </div>
+                        <ul class="sidebar-note">
+                            <li><i class="icon-check-circle"></i><span>Fast request processing with the existing MRS workflow.</span></li>
+                            <li><i class="icon-check-circle"></i><span>Secure catalog browsing and order review before checkout.</span></li>
+                            <li><i class="icon-check-circle"></i><span>Track quantities and stock availability before final submission.</span></li>
+                        </ul>
+                    </div>
+                </aside>
             </div>
         </div>
     </section>
-
 @endsection
 
 @section('pagejs')
@@ -293,9 +275,146 @@
     <script src="{{ asset('theme/catalogue/js/jquery.themepunch.revolution.min.js') }}"></script>
 
     <script>
+        function formatCurrency(value) {
+            return '₱' + Number(value || 0).toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+
+        function renderCartSidebar(items, totalItems) {
+            const $container = $('#my-cart-list');
+            const count = Number(totalItems || 0);
+
+            if (!items || items.length === 0) {
+                $container.html('<div class="empty-sidebar">Your cart is currently empty.</div>');
+                $('.mini-badge').text(0);
+                $('.top-cart-number').text(0);
+                $('.hero-cart-total').text(0);
+                $('.sidebar-total strong').text(0);
+                return;
+            }
+
+            let html = '';
+
+            $.each(items, function(index, item) {
+                const image = item.photoPrimary || '{{ asset('images/no-image.png') }}';
+                const price = Number(item.unitPrice || 0) * Number(item.qty || 0);
+                html += '<div class="sidebar-item cart-item" data-cart-id="' + item.id + '">';
+                html += '  <img src="' + image + '" alt="' + (item.name || 'Product') + '" onerror="this.src=\'{{ asset('images/no-image.png') }}\'" />';
+                html += '  <div>';
+                html += '    <h4>' + (item.name || '') + '</h4>';
+                html += '    <div class="cart-item-actions">';
+                html += '      <div class="side-cart-qty" aria-label="Quantity controls">';
+                html += '        <button type="button" class="qty-adjust qty-minus" data-cart-id="' + item.id + '" data-delta="-1" aria-label="Decrease quantity">−</button>';
+                html += '        <span class="qty-value">' + (item.qty || 0) + '</span>';
+                html += '        <button type="button" class="qty-adjust qty-plus" data-cart-id="' + item.id + '" data-delta="1" aria-label="Increase quantity">+</button>';
+                html += '      </div>';
+                html += '      <button type="button" class="remove-cart-item" data-cart-id="' + item.id + '" aria-label="Remove item"><i class="icon-trash-alt1"></i></button>';
+                html += '    </div>';
+                html += '  </div>';
+                html += '  <div>';
+                html += '    <strong>' + formatCurrency(price) + '</strong>';
+                html += '  </div>';
+                html += '</div>';
+            });
+
+            $container.html(html);
+            $('.mini-badge').text(count);
+            $('.top-cart-number').text(count);
+            $('.hero-cart-total').text(count);
+            $('.sidebar-total strong').text(count);
+            bindCartActions();
+        }
+
+        function bindCartActions() {
+            $('.qty-adjust').off('click').on('click', function() {
+                const cartId = $(this).data('cart-id');
+                const delta = Number($(this).data('delta') || 0);
+                const currentQty = Number($('.cart-item[data-cart-id="' + cartId + '"] .qty-value').text() || 0);
+                const nextQty = currentQty + delta;
+
+                if (nextQty <= 0) {
+                    removeCartItem(cartId);
+                    return;
+                }
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('cart.update') }}',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        orderID: cartId,
+                        quantity: nextQty
+                    },
+                    success: function(response) {
+                        if (response && response.success !== false) {
+                            renderCartSidebar(response.items, response.totalItems);
+                            $.notify('Cart updated', { position: 'bottom right', className: 'success' });
+                        }
+                    }
+                });
+            });
+
+            $('.remove-cart-item').off('click').on('click', function() {
+                removeCartItem($(this).data('cart-id'));
+            });
+        }
+
+        function removeCartItem(cartId) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('cart.remove_product') }}',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    order_id: cartId
+                },
+                success: function(response) {
+                    if (response && response.success !== false) {
+                        renderCartSidebar(response.items, response.totalItems);
+                        $.notify('Item removed from cart', { position: 'bottom right', className: 'success' });
+                    }
+                }
+            });
+        }
+
         $(document).ready(function() {
             var isAuthenticated = $('#isAuthenticated').val();
-            
+            bindCartActions();
+
+            $('.catalogue-tab').on('click', function() {
+                var $tab = $(this);
+                var panelId = $tab.data('catalogue-tab');
+
+                $('.catalogue-tab').removeClass('is-active').attr('aria-selected', 'false').attr('tabindex', '-1');
+                $tab.addClass('is-active').attr('aria-selected', 'true').removeAttr('tabindex');
+                $('.catalogue-tab-panel').attr('hidden', true).removeClass('is-active');
+                $('#' + panelId).removeAttr('hidden').addClass('is-active');
+            });
+
+            $('.catalogue-tab').on('keydown', function(event) {
+                if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') {
+                    return;
+                }
+
+                var $tabs = $('.catalogue-tab');
+                var nextIndex = ($tabs.index(this) + (event.key === 'ArrowRight' ? 1 : $tabs.length - 1)) % $tabs.length;
+                $tabs.eq(nextIndex).focus().trigger('click');
+                event.preventDefault();
+            });
+
             if (isAuthenticated === 'false') {
                 $('.grid-inner a, #top-cart a, .product-image a').click(function(e) {
                     e.preventDefault();
@@ -326,6 +445,11 @@
                     $("#loading-overlay").hide();
                     if (returnData['success']) {
                         $('.top-cart-number').html(returnData['totalItems']);
+                        $('.mini-badge').html(returnData['totalItems']);
+                        $('.hero-cart-total').html(returnData['totalItems']);
+                        if (returnData.items) {
+                            renderCartSidebar(returnData.items, returnData.totalItems);
+                        }
                         $.notify("Product Added to your cart", {
                             position: "bottom right",
                             className: "success"

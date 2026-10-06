@@ -47,10 +47,190 @@
         }
         .imf-loader .imf-spin { width: 38px; height: 38px; border: 3px solid #e3e9f2; border-top-color: #3b7ddd; border-radius: 50%; animation: imfspin .8s linear infinite; }
         @keyframes imfspin { to { transform: rotate(360deg); } }
+
+        /* Match the Materials Request System visual language. */
+        .imf-page {
+            --imf-ink: #222e2b;
+            --imf-deep: #0b1211;
+            --imf-green: #42615b;
+            --imf-gold: #ecd49a;
+            --imf-line: #e5ebe7;
+            --imf-muted: #71807a;
+            color: var(--imf-ink);
+            font-family: "DM Sans", sans-serif;
+            padding-bottom: 36px;
+        }
+        .imf-page .imf-page-head {
+            align-items: flex-end;
+            margin: 28px 0 22px;
+        }
+        .imf-page .imf-page-head h3 {
+            color: var(--imf-ink);
+            font-size: 30px;
+            font-weight: 700;
+        }
+        .imf-page .imf-page-head p {
+            color: var(--imf-muted);
+            font-size: 13px;
+            margin: 7px 0 0;
+        }
+        .imf-page .imf-page-head > div:first-child::before {
+            color: var(--imf-green);
+            content: 'INVENTORY MAINTENANCE';
+            display: block;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.6px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .imf-page .imf-page-head > div:first-child { flex: 1; }
+        .imf-page .imf-page-head > a {
+            background: var(--imf-green) !important;
+            border: 1px solid var(--imf-green) !important;
+            border-radius: 8px;
+            color: #fff !important;
+            font-size: 12px;
+            height: 40px;
+            padding: 0 15px;
+            transition: background-color .2s ease, transform .2s ease;
+        }
+        .imf-page .imf-page-head > a:hover {
+            background: var(--imf-deep) !important;
+            border-color: var(--imf-deep) !important;
+            transform: translateY(-2px);
+        }
+        .imf-page .imf-chips {
+            align-items: center;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 0;
+        }
+        .imf-page .imf-chip {
+            background: #fff;
+            border: 1px solid var(--imf-line);
+            border-radius: 7px;
+            color: var(--imf-muted);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .4px;
+            padding: 7px 12px;
+            text-transform: uppercase;
+        }
+        .imf-page .imf-chip:hover,
+        .imf-page .imf-chip.active {
+            background: var(--imf-green);
+            border-color: var(--imf-green);
+            color: #fff;
+        }
+        .imf-page .imf-toolbar {
+            align-items: center;
+            background: #fff;
+            border: 1px solid var(--imf-line);
+            border-radius: 14px;
+            box-shadow: 0 8px 24px rgba(34, 46, 43, .05);
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin: 18px 0 14px;
+            padding: 14px;
+        }
+        .imf-page .imf-toolbar-label {
+            color: var(--imf-muted);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .6px;
+            margin-right: 2px;
+            text-transform: uppercase;
+        }
+        .imf-page .imf-table-shell {
+            background: #fff;
+            border: 1px solid var(--imf-line);
+            border-radius: 14px;
+            box-shadow: 0 10px 28px rgba(34, 46, 43, .06);
+            overflow: hidden;
+            padding: 6px 14px 14px;
+        }
+        .imf-page #inventoryTable {
+            border: 0;
+            border-collapse: separate;
+            border-spacing: 0;
+            color: var(--imf-ink);
+            font-size: 13px;
+            margin-top: 8px !important;
+        }
+        .imf-page #inventoryTable thead th {
+            background: #f3f6f4;
+            border: 0 !important;
+            border-bottom: 1px solid var(--imf-line) !important;
+            color: var(--imf-green);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .7px;
+            padding: 14px 12px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        .imf-page #inventoryTable tbody td {
+            border: 0 !important;
+            border-bottom: 1px solid #edf1ee !important;
+            padding: 15px 12px;
+            vertical-align: middle;
+        }
+        .imf-page #inventoryTable tbody tr:last-child td { border-bottom: 0 !important; }
+        .imf-page #inventoryTable tbody tr { transition: background-color .15s ease; }
+        .imf-page #inventoryTable tbody tr:hover td { background: #f8faf8; }
+        .imf-page .dataTables_wrapper .dataTables_length,
+        .imf-page .dataTables_wrapper .dataTables_filter {
+            color: var(--imf-muted);
+            font-size: 12px;
+            padding: 10px 0 4px;
+        }
+        .imf-page .dataTables_wrapper .dataTables_filter input,
+        .imf-page .dataTables_wrapper .dataTables_length select {
+            background: #f8faf8;
+            border: 1px solid var(--imf-line);
+            border-radius: 7px;
+            color: var(--imf-ink);
+            min-height: 34px;
+            outline: none;
+            padding: 5px 9px;
+        }
+        .imf-page .dataTables_wrapper .dataTables_filter input:focus {
+            border-color: var(--imf-green);
+            box-shadow: 0 0 0 3px rgba(66, 97, 91, .1);
+        }
+        .imf-page .dataTables_wrapper .dataTables_info {
+            color: var(--imf-muted);
+            font-size: 12px;
+            padding-top: 15px;
+        }
+        .imf-page .dataTables_wrapper .dataTables_paginate { padding-top: 10px; }
+        .imf-page .dataTables_wrapper .paginate_button {
+            border: 1px solid transparent !important;
+            border-radius: 6px !important;
+            color: var(--imf-green) !important;
+            font-size: 12px;
+            margin-left: 3px;
+        }
+        .imf-page .dataTables_wrapper .paginate_button.current,
+        .imf-page .dataTables_wrapper .paginate_button:hover {
+            background: var(--imf-green) !important;
+            border-color: var(--imf-green) !important;
+            color: #fff !important;
+        }
+        @media (max-width: 767.98px) {
+            .imf-page .imf-page-head { align-items: flex-start; }
+            .imf-page .imf-page-head > a { width: 100%; }
+            .imf-page .imf-toolbar { align-items: flex-start; flex-direction: column; }
+            .imf-page .imf-toolbar-label { margin: 0; }
+            .imf-page .imf-table-shell { padding-left: 8px; padding-right: 8px; }
+        }
     </style>
 @endsection
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid imf-page">
     <div class="row">
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -81,7 +261,7 @@
         </div>
 
         <div class="col-lg-12">
-            <div class="border py-4 px-3 border-transparent shadow-lg p-lg-5">
+            <div>
 
                 <div class="imf-page-head">
                     <div>
@@ -93,16 +273,20 @@
                     </a>
                 </div>
 
-                <div class="imf-chips" id="imfChips">
-                    <span class="imf-chip active" data-filter="">All</span>
-                    <span class="imf-chip" data-filter="SAVED">Saved</span>
-                    <span class="imf-chip" data-filter="SUBMITTED">Submitted</span>
-                    <span class="imf-chip" data-filter="APPROVED">Approved</span>
-                    <span class="imf-chip" data-filter="REJECTED">Rejected</span>
-                    <span class="imf-chip" data-filter="CANCELLED">Cancelled</span>
+                <div class="imf-toolbar">
+                    <span class="imf-toolbar-label">Request status</span>
+                    <div class="imf-chips" id="imfChips">
+                        <span class="imf-chip active" data-filter="">All</span>
+                        <span class="imf-chip" data-filter="SAVED">Saved</span>
+                        <span class="imf-chip" data-filter="SUBMITTED">Submitted</span>
+                        <span class="imf-chip" data-filter="APPROVED">Approved</span>
+                        <span class="imf-chip" data-filter="REJECTED">Rejected</span>
+                        <span class="imf-chip" data-filter="CANCELLED">Cancelled</span>
+                    </div>
                 </div>
 
-                <table id="inventoryTable" class="table table-striped w-100">
+                <div class="imf-table-shell">
+                <table id="inventoryTable" class="table w-100">
                     <thead class="thead-light">
                         <tr>
                             <th scope="col" class="ls1 fs-14-f fw-bold text-uppercase text-gray">IMF No</th>
@@ -116,6 +300,7 @@
                     </thead>
                     <tbody></tbody>
                 </table>
+                </div>
             </div>
         </div>
     </div>

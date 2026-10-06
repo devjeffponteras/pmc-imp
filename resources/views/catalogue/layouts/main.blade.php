@@ -36,6 +36,7 @@
 	<link rel="stylesheet" href="{{ asset('css/slick.css') }}" type="text/css" />
 	<link rel="stylesheet" href="{{ asset('css/slick-theme.css') }}" type="text/css" />
 	<link rel="stylesheet" href="{{ asset('css/custom.css') }}" type="text/css" />
+	<link rel="stylesheet" href="{{ asset('app.css') }}" type="text/css" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="icon" href="{{ asset('img/pmc-logo.png') }}" type="image/x-icon">
 
@@ -123,10 +124,12 @@
 
                 @yield('content')
 
-        <!-- Footer
-        ============================================= -->
-        @include('theme.layouts.footers.pmc-website')
-        {{--@include('theme.layouts.footer')--}}
+        @unless(request()->routeIs('catalogue.home'))
+            <!-- Footer
+            ============================================= -->
+            @include('theme.layouts.footers.pmc-website')
+            {{--@include('theme.layouts.footer')--}}
+        @endunless
 
     </div>
 

@@ -15,6 +15,274 @@
     <link rel="stylesheet" href="{{ asset('lib/datatables.net-responsive-dt/css/responsive.dataTables.min.css') }}" type="text/css" />
 
     <style>
+        .mrs-page {
+            --mrs-ink: #222e2b;
+            --mrs-deep: #0b1211;
+            --mrs-green: #42615b;
+            --mrs-gold: #ecd49a;
+            --mrs-line: #e5ebe7;
+            --mrs-muted: #71807a;
+            color: var(--mrs-ink);
+            font-family: "DM Sans", sans-serif;
+            padding-bottom: 36px;
+        }
+        .mrs-page .mrs-heading {
+            align-items: flex-end;
+            display: flex;
+            justify-content: space-between;
+            margin: 28px 0 22px;
+        }
+        .mrs-page .mrs-eyebrow {
+            color: var(--mrs-green);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.6px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .mrs-page .mrs-heading h1 {
+            color: var(--mrs-ink);
+            font-size: 30px;
+            font-weight: 700;
+            margin: 0;
+        }
+        .mrs-page .mrs-heading p {
+            color: var(--mrs-muted);
+            font-size: 13px;
+            margin: 7px 0 0;
+        }
+        .mrs-page .mrs-heading-mark {
+            align-items: center;
+            background: rgba(66, 97, 91, .1);
+            border: 1px solid rgba(66, 97, 91, .16);
+            border-radius: 12px;
+            color: var(--mrs-green);
+            display: flex;
+            font-size: 23px;
+            height: 52px;
+            justify-content: center;
+            width: 52px;
+        }
+        .mrs-page .mrs-summary-card {
+            background: #fff;
+            border: 1px solid var(--mrs-line);
+            border-radius: 14px;
+            box-shadow: 0 8px 24px rgba(34, 46, 43, .06);
+            min-height: 116px;
+            padding: 20px 22px !important;
+            position: relative;
+            text-align: left !important;
+            transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+        }
+        .mrs-page .mrs-summary-card::before {
+            background: var(--mrs-gold);
+            border-radius: 2px;
+            content: '';
+            height: 28px;
+            left: 0;
+            position: absolute;
+            top: 22px;
+            width: 3px;
+        }
+        .mrs-page .mrs-summary-card:hover {
+            border-color: rgba(66, 97, 91, .3);
+            box-shadow: 0 12px 28px rgba(34, 46, 43, .1);
+            transform: translateY(-2px);
+        }
+        .mrs-page .mrs-summary-card h5 {
+            align-items: center;
+            color: var(--mrs-muted);
+            display: flex;
+            font-size: 11px;
+            font-weight: 700;
+            gap: 8px;
+            letter-spacing: .5px;
+            margin: 0 0 9px;
+            text-transform: uppercase;
+        }
+        .mrs-page .mrs-summary-card h5 i {
+            color: var(--mrs-green);
+            flex: 0 0 auto;
+            font-size: 16px;
+        }
+        .mrs-page .mrs-summary-card .display-6 {
+            color: var(--mrs-ink) !important;
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1;
+        }
+        .mrs-page .mrs-toolbar {
+            align-items: center;
+            background: #fff;
+            border: 1px solid var(--mrs-line);
+            border-radius: 14px;
+            box-shadow: 0 8px 24px rgba(34, 46, 43, .05);
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+            margin: 18px 0 14px;
+            padding: 14px;
+        }
+        .mrs-page .mrs-filter-group {
+            align-items: center;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+        .mrs-page .mrs-toolbar-label {
+            color: var(--mrs-muted);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .6px;
+            text-transform: uppercase;
+        }
+        .mrs-page .mrs-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+        }
+        .mrs-page .mrs-actions .button {
+            background: var(--mrs-green) !important;
+            border: 1px solid var(--mrs-green) !important;
+            border-radius: 8px;
+            color: #fff !important;
+            font-size: 12px;
+            height: 40px;
+            margin: 0 !important;
+            padding: 0 15px;
+            transition: background-color .2s ease, transform .2s ease;
+        }
+        .mrs-page .mrs-actions .button:last-child {
+            background: transparent !important;
+            color: var(--mrs-green) !important;
+        }
+        .mrs-page .mrs-actions .button:hover {
+            background: var(--mrs-deep) !important;
+            border-color: var(--mrs-deep) !important;
+            color: #fff !important;
+            transform: translateY(-2px);
+        }
+        .mrs-page .mrs-table-shell {
+            background: #fff;
+            border: 1px solid var(--mrs-line);
+            border-radius: 14px;
+            box-shadow: 0 10px 28px rgba(34, 46, 43, .06);
+            overflow: hidden;
+            padding: 6px 14px 14px;
+        }
+        .mrs-page #inventoryTable {
+            border: 0;
+            border-collapse: separate;
+            border-spacing: 0;
+            color: var(--mrs-ink);
+            font-size: 13px;
+            margin-top: 8px !important;
+        }
+        .mrs-page #inventoryTable thead th {
+            background: #f3f6f4;
+            border: 0 !important;
+            border-bottom: 1px solid var(--mrs-line) !important;
+            color: var(--mrs-green);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .7px;
+            padding: 14px 12px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        .mrs-page #inventoryTable tbody td {
+            border: 0 !important;
+            border-bottom: 1px solid #edf1ee !important;
+            padding: 15px 12px;
+            vertical-align: middle;
+        }
+        .mrs-page #inventoryTable tbody tr:last-child td {
+            border-bottom: 0 !important;
+        }
+        .mrs-page #inventoryTable tbody tr {
+            transition: background-color .15s ease;
+        }
+        .mrs-page #inventoryTable tbody tr:hover td {
+            background: #f8faf8;
+        }
+        .mrs-page .dataTables_wrapper .dataTables_length,
+        .mrs-page .dataTables_wrapper .dataTables_filter {
+            color: var(--mrs-muted);
+            font-size: 12px;
+            padding: 10px 0 4px;
+        }
+        .mrs-page .dataTables_wrapper .dataTables_filter input,
+        .mrs-page .dataTables_wrapper .dataTables_length select {
+            background: #f8faf8;
+            border: 1px solid var(--mrs-line);
+            border-radius: 7px;
+            color: var(--mrs-ink);
+            min-height: 34px;
+            outline: none;
+            padding: 5px 9px;
+        }
+        .mrs-page .dataTables_wrapper .dataTables_filter input:focus {
+            border-color: var(--mrs-green);
+            box-shadow: 0 0 0 3px rgba(66, 97, 91, .1);
+        }
+        .mrs-page .dataTables_wrapper .dataTables_info {
+            color: var(--mrs-muted);
+            font-size: 12px;
+            padding-top: 15px;
+        }
+        .mrs-page .dataTables_wrapper .dataTables_paginate {
+            padding-top: 10px;
+        }
+        .mrs-page .dataTables_wrapper .paginate_button {
+            border: 1px solid transparent !important;
+            border-radius: 6px !important;
+            color: var(--mrs-green) !important;
+            font-size: 12px;
+            margin-left: 3px;
+        }
+        .mrs-page .dataTables_wrapper .paginate_button.current,
+        .mrs-page .dataTables_wrapper .paginate_button:hover {
+            background: var(--mrs-green) !important;
+            border-color: var(--mrs-green) !important;
+            color: #fff !important;
+        }
+        .mrs-page .imf-chips {
+            gap: 7px;
+            margin: 0;
+        }
+        .mrs-page .imf-chip {
+            background: #f7f9f7;
+            border-color: var(--mrs-line);
+            border-radius: 7px;
+            color: var(--mrs-muted);
+            font-size: 11px;
+            padding: 7px 11px;
+        }
+        .mrs-page .imf-chip:hover {
+            border-color: rgba(66, 97, 91, .4);
+            color: var(--mrs-green);
+        }
+        .mrs-page .imf-chip.active {
+            background: var(--mrs-green);
+            border-color: var(--mrs-green);
+            color: #fff;
+        }
+        @media (max-width: 767.98px) {
+            .mrs-page .mrs-heading {
+                align-items: flex-start;
+            }
+            .mrs-page .mrs-heading h1 { font-size: 25px; }
+            .mrs-page .mrs-heading-mark { display: none; }
+            .mrs-page .mrs-toolbar {
+                align-items: stretch;
+                flex-direction: column;
+            }
+            .mrs-page .mrs-filter-group { justify-content: flex-start; }
+            .mrs-page .mrs-actions .button { flex: 1 1 180px; }
+            .mrs-page .mrs-table-shell { padding: 6px 8px 12px; }
+        }
+
         /* ---- MRS list: status chips + fetching loader (parity with IMF) ---- */
         .imf-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 8px; }
         .imf-chip { cursor: pointer; border: 1px solid #dee2e6; background: #fff; color: #495057; border-radius: 20px; padding: 5px 16px; font-size: 12px; font-weight: 600; letter-spacing: .3px; transition: all .15s ease; user-select: none; }
@@ -440,7 +708,7 @@
     </style>
 @endsection
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid mrs-page">
     <div class="row">
 		<div class="col-md-12">
             @if (Session::has('success'))
@@ -464,37 +732,47 @@
                     </ul>
                 </div>
             @endif
+            <div class="mrs-heading">
+                <div>
+                    <div class="mrs-eyebrow">Materials Request System</div>
+                    <h1>My Requests</h1>
+                    <p>Track, manage, and review your department purchase requests.</p>
+                </div>
+                <div class="mrs-heading-mark" aria-hidden="true"><i class="icon-line-clipboard"></i></div>
+            </div>
+
             <!-- DASHBOARD SUMMARY -->
             <div class="row mt-4 mb-3">
                 <div class="col-md-4">
-                    <div class="card shadow-sm text-center p-3">
-                        <h5 class="fw-bold">Total of Newly-submitted to WFS</h5>
+                    <div class="card mrs-summary-card">
+                        <h5 class="fw-bold"><i class="icon-line-send" aria-hidden="true"></i><span>Total of Newly-submitted to WFS</span></h5>
                         <div class="display-6 text-success">{{ $postedCount }}</div>
                     </div>
                 </div>
 
                 <div class="col-md-4">
-                    <div class="card shadow-sm text-center p-3">
-                        <h5 class="fw-bold">Overdue In-Progress (2+ Days)</h5>
+                    <div class="card mrs-summary-card">
+                        <h5 class="fw-bold"><i class="icon-line-clock" aria-hidden="true"></i><span>Overdue In-Progress (2+ Days)</span></h5>
                         <div class="display-6 text-danger">{{ $inProgressOverdue }}</div>
                     </div>
                 </div>
 
                 <div class="col-md-4">
-                    <div class="card shadow-sm text-center p-3">
-                        <h5 class="fw-bold">% Overdue</h5>
+                    <div class="card mrs-summary-card">
+                        <h5 class="fw-bold"><i class="icon-line-percent" aria-hidden="true"></i><span>% Overdue</span></h5>
                         <div class="display-6 text-primary">{{ $percentageOverdue }}%</div>
                     </div>
                 </div>
             </div>
-            <div class="d-flex align-items-center flex-wrap">
+            <div class="mrs-toolbar">
+                <div class="mrs-actions">
                 <a href="{{ route('cart.front.show') }}" class="button button-dark button-border button-circle button-xlarge fw-bold fs-14-f nols text-dark h-text-light notextshadow">Add New MRS</a>
                 
                 <a href="{{ route('export.users') }}?type=deptuser" class="button button-dark button-border button-circle button-xlarge fw-bold fs-14-f nols text-dark h-text-light notextshadow">Export As Excel</a>
-            
-            </div>
-
-            <div class="imf-chips" id="mrsChips">
+                </div>
+                <div class="mrs-filter-group">
+                    <span class="mrs-toolbar-label">Request status</span>
+                    <div class="imf-chips" id="mrsChips">
                 <span class="imf-chip active" data-filter="">All</span>
                 <span class="imf-chip" data-filter="SAVED">Saved</span>
                 <span class="imf-chip" data-filter="POSTED">Posted</span>
@@ -507,9 +785,12 @@
                 <span class="imf-chip" data-filter="REVISED MRS">Revised</span>
                 <span class="imf-chip" data-filter="APPROVED">Approved</span>
                 <span class="imf-chip" data-filter="CANCELLED">Cancelled</span>
+                    </div>
+                </div>
             </div>
 
 
+            <div class="mrs-table-shell">
             <table id="inventoryTable" class="table table-bordered table-striped">
                 <thead class="text-center">
                     <tr>
@@ -531,6 +812,7 @@
                 </thead>
                 <tbody></tbody>
             </table>
+            </div>
         </div>
     </div>
 </div>

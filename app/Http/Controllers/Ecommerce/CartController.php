@@ -36,6 +36,40 @@ use DB;
 
 class CartController extends Controller
 {
+    private function cartResponsePayload($items)
+    {
+        $payloadItems = [];
+        $totalItems = 0;
+
+        foreach ($items as $item) {
+            if (!isset($item->product)) {
+                continue;
+            }
+
+            $qty = (int) $item->qty;
+            $unitPrice = (float) ($item->product->discountedprice ?? $item->product->price ?? 0);
+            $lineTotal = $unitPrice * $qty;
+
+            $payloadItems[] = [
+                'id' => $item->id,
+                'product_id' => $item->product_id,
+                'name' => $item->product->name,
+                'qty' => $qty,
+                'photoPrimary' => $item->product->photoPrimary ?: asset('images/no-image.png'),
+                'unitPrice' => $unitPrice,
+                'lineTotal' => $lineTotal,
+            ];
+
+            $totalItems += $qty;
+        }
+
+        return [
+            'success' => true,
+            'totalItems' => $totalItems,
+            'items' => $payloadItems,
+        ];
+    }
+
     public function add_to_cart(Request $request)
     {
         $product = Product::whereId($request->product_id)->first();
@@ -65,10 +99,9 @@ class CartController extends Controller
                     'qty' => $request->qty,
                     'price' => $price
                 ]);
-                return response()->json([
-                    'success' => true,
-                    'totalItems' => Setting::EcommerceCartTotalItems()
-                ]);
+                $items = Cart::where('user_id', Auth::id())->with('product')->get();
+
+                return response()->json($this->cartResponsePayload($items));
             }else{
                 return response()->json([
                     'success' => false
@@ -110,6 +143,13 @@ class CartController extends Controller
     {
         if (auth()->check()) {
             Cart::whereId($request->order_id)->delete();
+
+            if ($request->ajax() || $request->wantsJson()) {
+                $items = Cart::where('user_id', auth()->id())->with('product')->get();
+                return response()->json(array_merge([
+                    'message' => 'Product has been removed.'
+                ], $this->cartResponsePayload($items)));
+            }
         } else {
             $cart = session('cart', []);
             $index = (int) $request->order_id;
@@ -126,30 +166,30 @@ class CartController extends Controller
     {
         if (auth()->check()) {
             if (Cart::where('user_id', auth()->id())->count() == 0) {
-                return;
+                return response()->json(['success' => false, 'message' => 'Cart is empty.']);
             }
 
+            $newQty = (int) $request->quantity;
             $qry = Cart::find($request->orderID);
 
+            if (!$qry) {
+                return response()->json(['success' => false, 'message' => 'Item was not found.']);
+            }
+
+            if ($newQty <= 0) {
+                $qry->delete();
+                $items = Cart::where('user_id', auth()->id())->with('product')->get();
+                return response()->json(array_merge([
+                    'message' => 'Item removed from cart.'
+                ], $this->cartResponsePayload($items)));
+            }
+
             $qry->update([
-                'qty' => $request->quantity
+                'qty' => $newQty
             ]);
 
-            $cart_qty = $qry->first();
-
-            $price_before = $cart_qty->product->price*$cart_qty->qty;
-
-
-            $carts = Cart::where('user_id', auth()->id())->get();
-            $total_promo_discount = 0;
-            $subtotal = 0;
-
-            foreach($carts as $cart){
-
-                $promo_discount = $cart->product->price-$cart->product->discountedprice;
-                $total_promo_discount += $promo_discount*$cart->qty;
-                $subtotal += $cart->product->price*$cart->qty;
-            }
+            $items = Cart::where('user_id', auth()->id())->with('product')->get();
+            return response()->json($this->cartResponsePayload($items));
         } else {
             $cart = session('cart', []);
                 foreach ($cart as $key => $order) {
@@ -219,7 +259,9 @@ class CartController extends Controller
             "status" => "SAVED"
         ])->first();
         $sections = SalesHeader::distinct()->pluck('section');
-        return view('theme.pages.ecommerce.checkout', compact('orders','locations', 'cart', 'coupons', 'customer', 'page', 'announcements', 'mrs', 'sections'));
+        $totalQty = $orders->sum('qty');
+
+        return view('theme.pages.ecommerce.checkout', compact('orders','locations', 'cart', 'coupons', 'customer', 'page', 'announcements', 'mrs', 'sections', 'totalQty'));
     }
 
     public function next_order_number()
