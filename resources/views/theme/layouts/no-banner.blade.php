@@ -150,7 +150,7 @@
             <strong>Note: The next person has three days to review or approve it before forwarding to the next level. Please be reminded to raise a request 1 to 2 months earlier before the Date Needed to avoid rush processing of your request. Thank you.</strong>
         </div>
     </div>
-@elseif(!request()->routeIs('new-stock.index') && !request()->routeIs('cart.front.show'))
+@elseif(!request()->routeIs('new-stock.index') && !request()->routeIs('cart.front.show') && !request()->routeIs('order.success'))
 <section id="page-title" class="pmc-page-banner">
 
     <div class="container-fluid clearfix">
